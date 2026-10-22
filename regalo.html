@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mil razones para ser agradecido — ¡Gracias por tu regalo!</title>
+  <meta name="description" content="Gracias por tu regalo navideño. Visita nuestra página, síguenos y encuentra tu punto de venta más cercano.">
+
+  <!-- ============================================================
+       FUENTES — Caveat (manuscrita), Playfair Display (títulos),
+       Inter (cuerpo). Mismas que el diario, para mantener la marca.
+       ============================================================ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet">
+
+  <style>
+    /* =============================================================
+       VARIABLES — Edita aquí para cambiar la paleta
+       ============================================================= */
+    :root {
+      --white: #FFFFFF;
+      --snow: #F8F8F6;
+      --text: #2D2D2D;
+      --text-light: #555555;
+      --text-muted: #999999;
+
+      /* Confeti multicolor (igual que el diario) */
+      --coral: #E8656D;
+      --blue: #5B9BD5;
+      --green: #7BC47F;
+      --yellow: #F5C842;
+      --orange: #F4A259;
+
+      /* Acento navideño sutil */
+      --pine: #2E7D5B;
+
+      /* Post-its pastel */
+      --pastel-yellow: #FFF3D4;
+      --pastel-pink: #FFE0E3;
+      --pastel-green: #D8F5D8;
+
+      --font-hand: 'Caveat', cursive;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* Contenedor central angosto (mobile-first, se escanea con celular) */
+    .wrap {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 440px;
+      margin: 0 auto;
+      padding: 32px 20px 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* =============================================================
+       CONFETI (canvas de fondo)
+       ============================================================= */
+    #confettiCanvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* =============================================================
+       HERO
+       ============================================================= */
+    .greeting {
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--pine);
+      margin-bottom: 10px;
+    }
+    .title {
+      font-family: var(--font-hand);
+      font-size: 2.6rem;
+      font-weight: 700;
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--text-light);
+      margin-bottom: 4px;
+    }
+
+    /* Papelito con mensaje de agradecimiento */
+    .thanks-note {
+      position: relative;
+      display: inline-block;
+      font-family: var(--font-serif);
+      font-size: 0.95rem;
+      color: var(--text-light);
+      line-height: 1.5;
+      padding: 14px 20px;
+      background: var(--pastel-green);
+      border-radius: 3px;
+      transform: rotate(-1deg);
+      box-shadow: 2px 3px 8px rgba(0,0,0,0.06);
+      margin: 20px 0 28px;
+    }
+    .thanks-note .washi {
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 46px;
+      height: 12px;
+      border-radius: 1px;
+      background: var(--coral);
+      opacity: 0.65;
+    }
+
+    /* =============================================================
+       BOTONES DE ENLACE (estilo hub)
+       ============================================================= */
+    .links {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .link-btn {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+      padding: 15px 18px;
+      border-radius: 16px;
+      background: var(--white);
+      border: 1.5px solid #eee;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+      transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+    }
+    .link-btn:hover, .link-btn:active {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+    /* Ícono circular de cada botón */
+    .link-btn .ico {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      color: #fff;
+    }
+    .link-btn .label { flex: 1; text-align: left; }
+    .link-btn .chevron { color: var(--text-muted); font-size: 1.1rem; }
+
+    /* Botón principal destacado (la página) */
+    .link-btn.primary {
+      background: var(--coral);
+      color: #fff;
+      border-color: var(--coral);
+    }
+    .link-btn.primary .ico { background: rgba(255,255,255,0.22); }
+    .link-btn.primary .chevron { color: rgba(255,255,255,0.8); }
+
+    .ico-web { background: var(--blue); }
+    .ico-wa { background: #25D366; }
+    .ico-mail { background: var(--orange); }
+    .ico-ig { background: #E1306C; }
+    .ico-fb { background: #1877F2; }
+    .ico-tt { background: #111; }
+    .ico-map { background: var(--pine); }
+
+    .ico svg { width: 20px; height: 20px; }
+
+    /* Separador con texto */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      margin: 30px 0 18px;
+    }
+    .divider::before, .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: #e8e8e8;
+    }
+    .divider span {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* =============================================================
+       PUNTOS DE VENTA (croquis)
+       ============================================================= */
+    .stores { width: 100%; display: flex; flex-direction: column; gap: 12px; }
+    .store-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: var(--snow);
+      border: 1px solid #ececec;
+      text-align: left;
+    }
+    .store-pin {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--pine);
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .store-pin svg { width: 18px; height: 18px; }
+    .store-info { flex: 1; min-width: 0; }
+    .store-name { font-weight: 600; font-size: 0.95rem; }
+    .store-addr { font-size: 0.82rem; color: var(--text-light); line-height: 1.4; margin-top: 2px; }
+    .store-maps {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--pine);
+    }
+
+    /* Mapa embebido opcional */
+    .map-embed {
+      width: 100%;
+      margin-top: 14px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid #ececec;
+      aspect-ratio: 16 / 11;
+      background: var(--snow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      text-align: center;
+      padding: 16px;
+    }
+    .map-embed iframe { width: 100%; height: 100%; border: 0; }
+
+    /* Footer */
+    footer {
+      margin-top: 34px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .footer-title {
+      font-family: var(--font-hand);
+      font-size: 1.3rem;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="confettiCanvas"></canvas>
+
+  <main class="wrap">
+    <!-- HERO -->
+    <p class="greeting">🎁 Gracias por tu regalo</p>
+    <!-- [TÍTULO] -->
+    <h1 class="title">Mil razones para<br>ser agradecido</h1>
+    <p class="subtitle">Diario de gratitud y autoconocimiento</p>
+
+    <div class="thanks-note">
+      <span class="washi"></span>
+      <!-- [MENSAJE] — edita este agradecimiento navideño -->
+      Esta Navidad celebramos contigo. Que la gratitud ilumine tus días. 🌟
+    </div>
+
+    <!-- ENLACES -->
+    <nav class="links">
+      <!-- 1) Página principal (el diario) — BOTÓN DESTACADO
+           [LINK_PAGINA] — cambia por la URL de tu página ya publicada -->
+      <a class="link-btn primary" href="[LINK_PAGINA]" target="_blank" rel="noopener">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+        <span class="label">Conoce el diario</span>
+        <span class="chevron">›</span>
+      </a>
+
+      <!-- 2) WhatsApp — [NUMERO_WHATSAPP] con lada, sin + (ej. 5213312345678) -->
+      <a class="link-btn" href="https://wa.me/[NUMERO_WHATSAPP]?text=Hola%2C%20escaneé%20el%20QR%20de%20mi%20regalo%20🎁" target="_blank" rel="noopener">
+        <span class="ico ico-wa"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.82 9.82 0 001.519 5.26l-.999 3.648 3.47-.655zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.074-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.84 12.84 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg></span>
+        <span class="label">WhatsApp</span>
+        <span class="chevron">›</span>
+      </a>
+
+      <!-- 3) Correo — [CORREO] -->
+      <a class="link-btn" href="mailto:[CORREO]">
+        <span class="ico ico-mail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg></span>
+        <span class="label">Escríbenos por correo</span>
+        <span class="chevron">›</span>
+      </a>
+
+      <!-- 4) Instagram — [INSTAGRAM] -->
+      <a class="link-btn" href="[INSTAGRAM]" target="_blank" rel="noopener">
+        <span class="ico ico-ig"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></span>
+        <span class="label">Instagram</span>
+        <span class="chevron">›</span>
+      </a>
+
+      <!-- 5) Facebook — [FACEBOOK] -->
+      <a class="link-btn" href="[FACEBOOK]" target="_blank" rel="noopener">
+        <span class="ico ico-fb"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/></svg></span>
+        <span class="label">Facebook</span>
+        <span class="chevron">›</span>
+      </a>
+
+      <!-- 6) TikTok (opcional) — [TIKTOK]. Borra este bloque si no lo usas -->
+      <a class="link-btn" href="[TIKTOK]" target="_blank" rel="noopener">
+        <span class="ico ico-tt"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></span>
+        <span class="label">TikTok</span>
+        <span class="chevron">›</span>
+      </a>
+    </nav>
+
+    <!-- PUNTOS DE VENTA -->
+    <div class="divider"><span>📍 Puntos de venta</span></div>
+
+    <div class="stores">
+      <!-- ============================================================
+           PUNTO DE VENTA 1 — [EDITABLE]
+           - [NOMBRE_TIENDA], [DIRECCIÓN]
+           - [MAPS_LINK]: pega el enlace de Google Maps del lugar
+             (en Maps: Compartir → Copiar vínculo)
+           Duplica este bloque para agregar más puntos de venta.
+           ============================================================ -->
+      <a class="store-card" href="[MAPS_LINK_1]" target="_blank" rel="noopener">
+        <span class="store-pin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+        <span class="store-info">
+          <span class="store-name">[Nombre del punto de venta 1]</span>
+          <span class="store-addr">[Calle, número, colonia, ciudad]</span>
+          <span class="store-maps">Ver en Google Maps ›</span>
+        </span>
+      </a>
+
+      <!-- PUNTO DE VENTA 2 — [EDITABLE] -->
+      <a class="store-card" href="[MAPS_LINK_2]" target="_blank" rel="noopener">
+        <span class="store-pin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+        <span class="store-info">
+          <span class="store-name">[Nombre del punto de venta 2]</span>
+          <span class="store-addr">[Calle, número, colonia, ciudad]</span>
+          <span class="store-maps">Ver en Google Maps ›</span>
+        </span>
+      </a>
+
+      <!-- MAPA EMBEBIDO (opcional)
+           Para mostrar un mapa real: en Google Maps busca el lugar →
+           Compartir → "Insertar un mapa" → copia el src del <iframe> y
+           reemplaza el contenido de .map-embed por ese iframe. -->
+      <div class="map-embed">
+        🗺️ Croquis / mapa de puntos de venta<br>
+        <small>(Opcional: inserta aquí el mapa de Google Maps)</small>
+      </div>
+    </div>
+
+    <footer>
+      <p class="footer-title">¡Feliz Navidad! 🎄</p>
+      <!-- [AUTORAS] -->
+      <p>Ana Verónica Escoto Lozano &amp; Juana Patricia Núñez Cortez</p>
+    </footer>
+  </main>
+
+  <script>
+    /* =============================================================
+       CONFETI multicolor (igual que el diario), sutil y a todo color.
+       ============================================================= */
+    (function () {
+      var canvas = document.getElementById('confettiCanvas');
+      var ctx = canvas.getContext('2d');
+      var pieces = [];
+      var COLORS = ['#E8656D', '#5B9BD5', '#7BC47F', '#F5C842', '#F4A259'];
+      var SHAPES = ['circle', 'rect', 'diamond'];
+      var NUM = 38;
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      function make() {
+        return {
+          x: Math.random() * canvas.width,
+          y: -10 - Math.random() * canvas.height,
+          size: 5 + Math.random() * 6,
+          color: COLORS[(Math.random() * COLORS.length) | 0],
+          shape: SHAPES[(Math.random() * SHAPES.length) | 0],
+          speedY: 0.3 + Math.random() * 0.7,
+          speedX: (Math.random() - 0.5) * 0.4,
+          rot: Math.random() * 360,
+          rotSpeed: (Math.random() - 0.5) * 3,
+          opacity: 0.85 + Math.random() * 0.15
+        };
+      }
+      function init() {
+        resize();
+        pieces = [];
+        for (var i = 0; i < NUM; i++) { var p = make(); p.y = Math.random() * canvas.height; pieces.push(p); }
+      }
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (var i = 0; i < pieces.length; i++) {
+          var p = pieces[i];
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rot * Math.PI / 180);
+          ctx.globalAlpha = p.opacity;
+          ctx.fillStyle = p.color;
+          if (p.shape === 'circle') { ctx.beginPath(); ctx.arc(0, 0, p.size / 2, 0, Math.PI * 2); ctx.fill(); }
+          else if (p.shape === 'rect') { ctx.fillRect(-p.size / 2, -p.size / 3, p.size, p.size * 0.65); }
+          else { ctx.beginPath(); ctx.moveTo(0, -p.size / 2); ctx.lineTo(p.size / 2, 0); ctx.lineTo(0, p.size / 2); ctx.lineTo(-p.size / 2, 0); ctx.closePath(); ctx.fill(); }
+          ctx.restore();
+          p.y += p.speedY; p.x += p.speedX; p.rot += p.rotSpeed;
+          if (p.y > canvas.height + 20) pieces[i] = make();
+        }
+        requestAnimationFrame(draw);
+      }
+      window.addEventListener('resize', resize);
+      init();
+      draw();
+    })();
+  </script>
+</body>
+</html>

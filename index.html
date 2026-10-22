@@ -1,0 +1,1695 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mil razones para ser agradecido — Diario de Gratitud</title>
+  <meta name="description" content="Diario de gratitud y autoconocimiento. Un método práctico para hacer de la gratitud un estilo de vida.">
+
+  <!-- ============================================================
+       FUENTES — Caveat (manuscrita), Playfair Display (títulos),
+       Inter (cuerpo). Si quieres cambiar tipografías, edita aquí.
+       ============================================================ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet">
+
+  <style>
+    /* =============================================================
+       VARIABLES DE COLOR — Edita aquí para cambiar la paleta
+       ============================================================= */
+    :root {
+      --white: #FFFFFF;
+      --snow: #F8F8F6;
+      --text: #2D2D2D;
+      --text-light: #555555;
+      --text-muted: #999999;
+
+      /* Confeti — colores PLENOS y vibrantes */
+      --coral: #E8656D;
+      --blue: #5B9BD5;
+      --green: #7BC47F;
+      --yellow: #F5C842;
+      --orange: #F4A259;
+
+      /* Post-its pastel */
+      --pastel-yellow: #FFF3D4;
+      --pastel-pink: #FFE0E3;
+      --pastel-blue: #D4F0FF;
+      --pastel-green: #D8F5D8;
+      --pastel-peach: #FFE4CC;
+
+      /* Tipografía */
+      --font-hand: 'Caveat', cursive;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    /* =============================================================
+       RESET Y BASE
+       ============================================================= */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    img { max-width: 100%; height: auto; display: block; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; border: none; font-family: inherit; }
+
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* =============================================================
+       ANIMACIÓN FADE-IN AL SCROLL
+       ============================================================= */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* =============================================================
+       NAVEGACIÓN FIJA
+       ============================================================= */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      transition: box-shadow 0.3s ease;
+    }
+    .navbar.scrolled {
+      box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+    .nav-brand {
+      font-family: var(--font-hand);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .nav-links {
+      display: none;
+      list-style: none;
+      gap: 28px;
+    }
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-light);
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--coral);
+      transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--coral); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* Hamburguesa */
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      padding: 8px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    /* Menú móvil */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      background: rgba(255,255,255,0.98);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    .mobile-menu.open { display: block; }
+    .mobile-menu a {
+      display: block;
+      padding: 12px 0;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-light);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--coral); }
+
+    /* Desktop */
+    @media (min-width: 768px) {
+      .nav-links { display: flex; }
+      .hamburger { display: none; }
+    }
+
+    /* =============================================================
+       SECCIÓN 1 — HERO / BIENVENIDA
+       ============================================================= */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 20px 60px;
+      overflow: hidden;
+      background: var(--white);
+    }
+
+    /* Canvas del confeti */
+    #confettiCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Doodles decorativos (baja opacidad) */
+    .hero-doodle {
+      position: absolute;
+      opacity: 0.12;
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 600px;
+    }
+    .hero-title {
+      font-family: var(--font-hand);
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.05;
+      margin-bottom: 10px;
+    }
+    .hero-subtitle {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      color: var(--text-light);
+      font-style: italic;
+      margin-bottom: 6px;
+    }
+    .hero-edition {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    /* Frase en papelito con washi tape */
+    .hero-phrase {
+      position: relative;
+      display: inline-block;
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      color: var(--text-light);
+      line-height: 1.5;
+      padding: 16px 22px;
+      background: var(--pastel-yellow);
+      border-radius: 3px;
+      transform: rotate(-1deg);
+      box-shadow: 2px 3px 8px rgba(0,0,0,0.06);
+      margin-bottom: 30px;
+    }
+    .washi-tape {
+      position: absolute;
+      width: 44px;
+      height: 12px;
+      border-radius: 1px;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--green);
+      opacity: 0.65;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 15px 40px;
+      background: var(--coral);
+      color: var(--white);
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      box-shadow: 0 4px 16px rgba(232,101,109,0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(232,101,109,0.4);
+    }
+
+    @media (min-width: 768px) {
+      .hero-title { font-size: 4.2rem; }
+      .hero-subtitle { font-size: 1.3rem; }
+      .hero-phrase { font-size: 1.1rem; padding: 18px 28px; }
+    }
+
+    /* =============================================================
+       SECCIONES GENERALES
+       ============================================================= */
+    section {
+      padding: 70px 0;
+    }
+    section:nth-child(odd) {
+      background: var(--white);
+    }
+    section:nth-child(even) {
+      background: var(--snow);
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+    .section-subtitle {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      font-style: italic;
+      text-align: center;
+      color: var(--text-light);
+      margin-bottom: 40px;
+      max-width: 550px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    @media (min-width: 768px) {
+      section { padding: 100px 0; }
+      .section-title { font-size: 2.2rem; }
+    }
+
+    /* =============================================================
+       SECCIÓN 2 — QUÉ ES LA GRATITUD
+       ============================================================= */
+    .gratitud-text {
+      max-width: 650px;
+      margin: 0 auto 40px;
+      text-align: center;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text-light);
+    }
+
+    /* Carrusel de frases */
+    .carousel {
+      position: relative;
+      max-width: 500px;
+      margin: 0 auto;
+      text-align: center;
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .carousel-phrase {
+      position: relative;
+      display: inline-block;
+      font-family: var(--font-hand);
+      font-size: 1.5rem;
+      color: var(--text);
+      padding: 20px 28px;
+      border-radius: 3px;
+      box-shadow: 2px 3px 8px rgba(0,0,0,0.06);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      line-height: 1.3;
+    }
+    .carousel-phrase .washi-tape {
+      background: var(--blue);
+    }
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 20px;
+    }
+    .carousel-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ddd;
+      border: none;
+      padding: 0;
+      transition: background 0.3s;
+    }
+    .carousel-dot.active {
+      background: var(--coral);
+    }
+
+    @media (min-width: 768px) {
+      .carousel-phrase { font-size: 1.7rem; }
+    }
+
+    /* =============================================================
+       SECCIÓN 3 — EL DIARIO
+       ============================================================= */
+    .diario-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      align-items: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* [IMAGEN] — Reemplaza el placeholder con la foto de la portada */
+    .diario-image {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .image-placeholder {
+      width: 100%;
+      max-width: 320px;
+      aspect-ratio: 3/4;
+      background: var(--snow);
+      border: 2px dashed #ddd;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-align: center;
+      padding: 20px;
+      margin: 0 auto;
+    }
+
+    .diario-info h3 {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      margin-bottom: 14px;
+      color: var(--text);
+    }
+    .diario-info p {
+      color: var(--text-light);
+      margin-bottom: 16px;
+      line-height: 1.7;
+    }
+    .diario-benefits {
+      list-style: none;
+      padding: 0;
+    }
+    .diario-benefits li {
+      position: relative;
+      padding-left: 28px;
+      margin-bottom: 12px;
+      color: var(--text-light);
+      line-height: 1.5;
+    }
+    .diario-benefits li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 6px;
+      width: 16px;
+      height: 16px;
+      background: var(--coral);
+      opacity: 0.2;
+      border-radius: 50%;
+    }
+    .diario-benefits li::after {
+      content: '✓';
+      position: absolute;
+      left: 3px;
+      top: 3px;
+      font-size: 0.7rem;
+      color: var(--coral);
+      font-weight: 700;
+    }
+
+    @media (min-width: 768px) {
+      .diario-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* =============================================================
+       SECCIÓN 4 — MURO DE GRATITUD
+       ============================================================= */
+    .muro-input-area {
+      max-width: 500px;
+      margin: 0 auto 40px;
+      text-align: center;
+    }
+    .muro-input-area textarea {
+      width: 100%;
+      height: 100px;
+      padding: 16px;
+      border: 2px solid #eee;
+      border-radius: 12px;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--text);
+      resize: none;
+      transition: border-color 0.3s;
+      background: var(--white);
+    }
+    .muro-input-area textarea:focus {
+      outline: none;
+      border-color: var(--coral);
+    }
+    .muro-input-area textarea::placeholder {
+      color: #bbb;
+    }
+    .muro-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-secondary:hover {
+      transform: translateY(-1px);
+    }
+    .btn-pegar {
+      background: var(--coral);
+      color: var(--white);
+      box-shadow: 0 3px 12px rgba(232,101,109,0.25);
+    }
+    .btn-whatsapp {
+      background: #25D366;
+      color: var(--white);
+      box-shadow: 0 3px 12px rgba(37,211,102,0.25);
+    }
+
+    @media (min-width: 768px) {
+      .muro-buttons { flex-direction: row; justify-content: center; }
+    }
+
+    /* Tablero / corcho */
+    .cork-board {
+      background:
+        radial-gradient(circle at 20% 30%, rgba(210,180,140,0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(210,180,140,0.06) 0%, transparent 50%),
+        var(--snow);
+      border-radius: 16px;
+      min-height: 200px;
+      padding: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+      align-content: flex-start;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .note-card {
+      padding: 16px 18px;
+      border-radius: 3px;
+      font-family: var(--font-hand);
+      font-size: 1.05rem;
+      color: #444;
+      line-height: 1.3;
+      max-width: 200px;
+      min-width: 150px;
+      position: relative;
+      box-shadow: 2px 3px 10px rgba(0,0,0,0.07);
+      animation: noteAppear 0.4s ease;
+      word-wrap: break-word;
+    }
+    .note-card .note-tape {
+      position: absolute;
+      top: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 38px;
+      height: 10px;
+      border-radius: 1px;
+      opacity: 0.65;
+    }
+    .note-card .note-delete {
+      position: absolute;
+      top: 4px;
+      right: 6px;
+      background: none;
+      border: none;
+      font-size: 0.75rem;
+      color: #bbb;
+      cursor: pointer;
+      padding: 2px 4px;
+      line-height: 1;
+    }
+    .note-card .note-delete:hover { color: var(--coral); }
+
+    @keyframes noteAppear {
+      from { opacity: 0; transform: scale(0.8) rotate(-3deg); }
+      to { opacity: 1; transform: scale(1) rotate(var(--rotate)); }
+    }
+
+    .muro-empty {
+      text-align: center;
+      color: var(--text-muted);
+      font-style: italic;
+      font-size: 0.9rem;
+      padding: 40px 20px;
+      width: 100%;
+    }
+
+    /* =============================================================
+       SECCIÓN 5 — QUIÉNES SOMOS
+       ============================================================= */
+    .autoras-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .autora-card {
+      text-align: center;
+    }
+    .autora-foto {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: var(--snow);
+      border: 3px solid #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      overflow: hidden;
+    }
+    .autora-foto img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .autora-card h3 {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+    }
+    .autora-card p {
+      color: var(--text-light);
+      max-width: 360px;
+      margin: 0 auto;
+      line-height: 1.6;
+      font-size: 0.9rem;
+    }
+
+    @media (min-width: 768px) {
+      .autoras-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* =============================================================
+       SECCIÓN 6 — TALLERES
+       ============================================================= */
+    .talleres-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .taller-card {
+      background: var(--white);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    .taller-img {
+      width: 100%;
+      height: 180px;
+      background: var(--snow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .taller-info {
+      padding: 20px;
+    }
+    .taller-info h3 {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+    }
+    .taller-info p {
+      color: var(--text-light);
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+    .taller-date {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 5px 14px;
+      background: var(--pastel-peach);
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--orange);
+    }
+
+    @media (min-width: 768px) {
+      .talleres-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* =============================================================
+       SECCIÓN 7 — COMPRA
+       ============================================================= */
+    .compra-section {
+      text-align: center;
+    }
+    .compra-section .section-title {
+      font-size: 2rem;
+    }
+    .compra-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: center;
+      margin-top: 10px;
+    }
+    .btn-compra {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px 40px;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: transform 0.2s, box-shadow 0.2s;
+      min-width: 280px;
+    }
+    .btn-compra:hover {
+      transform: translateY(-2px);
+    }
+    .btn-mercadolibre {
+      background: #FFE600;
+      color: #333;
+      box-shadow: 0 4px 16px rgba(255,230,0,0.35);
+    }
+    .btn-mercadolibre:hover {
+      box-shadow: 0 6px 24px rgba(255,230,0,0.45);
+    }
+    .btn-compra-whatsapp {
+      background: #25D366;
+      color: var(--white);
+      box-shadow: 0 4px 16px rgba(37,211,102,0.3);
+    }
+    .btn-compra-whatsapp:hover {
+      box-shadow: 0 6px 24px rgba(37,211,102,0.4);
+    }
+
+    @media (min-width: 768px) {
+      .compra-buttons { flex-direction: row; justify-content: center; }
+      .compra-section .section-title { font-size: 2.4rem; }
+    }
+
+    /* =============================================================
+       SECCIÓN 8 — CONTACTO / BOLETÍN
+       ============================================================= */
+    .contacto-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .contacto-redes { text-align: center; }
+    .contacto-redes h3 {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      margin-bottom: 14px;
+    }
+    .social-links {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      background: var(--snow);
+      color: var(--text-light);
+      border: 1px solid rgba(0,0,0,0.06);
+      transition: background 0.2s, color 0.2s;
+    }
+    .social-link:hover {
+      background: var(--coral);
+      color: var(--white);
+      border-color: var(--coral);
+    }
+
+    .contacto-boletin { text-align: center; }
+    .contacto-boletin h3 {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+    .contacto-boletin p {
+      font-size: 0.88rem;
+      color: var(--text-light);
+      margin-bottom: 16px;
+    }
+    .boletin-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    .boletin-form input {
+      padding: 13px 18px;
+      border: 2px solid #eee;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-family: var(--font-body);
+      color: var(--text);
+      transition: border-color 0.3s;
+    }
+    .boletin-form input:focus {
+      outline: none;
+      border-color: var(--coral);
+    }
+    .boletin-form .btn-subscribe {
+      padding: 13px 28px;
+      background: var(--coral);
+      color: var(--white);
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      box-shadow: 0 3px 12px rgba(232,101,109,0.25);
+      transition: transform 0.2s;
+    }
+    .boletin-form .btn-subscribe:hover {
+      transform: translateY(-1px);
+    }
+    .boletin-msg {
+      font-size: 0.82rem;
+      margin-top: 8px;
+      min-height: 20px;
+    }
+    .boletin-msg.success { color: var(--green); }
+    .boletin-msg.error { color: var(--coral); }
+
+    @media (min-width: 768px) {
+      .contacto-grid { grid-template-columns: 1fr 1fr; }
+      .boletin-form { flex-direction: row; }
+      .boletin-form input { flex: 1; }
+    }
+
+    /* =============================================================
+       FOOTER
+       ============================================================= */
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      background: var(--text);
+      color: rgba(255,255,255,0.5);
+      font-size: 0.8rem;
+    }
+    footer a { color: rgba(255,255,255,0.7); }
+    footer a:hover { color: var(--white); }
+
+    /* =============================================================
+       DECORACIONES — Confeti estático esparcido en secciones
+       ============================================================= */
+    .section-confetti {
+      position: relative;
+      overflow: hidden;
+    }
+    .section-confetti::before,
+    .section-confetti::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Doodle SVG reutilizable (corazones y flores a baja opacidad) */
+    .doodle-decoration {
+      position: absolute;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVEGACIÓN FIJA
+       Edita los textos de los enlaces si renombras las secciones.
+       ============================================================ -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a href="#hero" class="nav-brand">Mil razones</a>
+      <ul class="nav-links">
+        <li><a href="#gratitud">Gratitud</a></li>
+        <li><a href="#diario">El Diario</a></li>
+        <li><a href="#muro">Muro</a></li>
+        <li><a href="#autoras">Nosotras</a></li>
+        <li><a href="#talleres">Talleres</a></li>
+        <li><a href="#compra">Comprar</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#gratitud">Gratitud</a>
+      <a href="#diario">El Diario</a>
+      <a href="#muro">Muro</a>
+      <a href="#autoras">Nosotras</a>
+      <a href="#talleres">Talleres</a>
+      <a href="#compra">Comprar</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+  </nav>
+
+
+  <!-- ============================================================
+       SECCIÓN 1 — HERO / BIENVENIDA
+       Confeti animado vía canvas. Doodles SVG decorativos.
+       ============================================================ -->
+  <section class="hero" id="hero">
+    <canvas id="confettiCanvas"></canvas>
+
+    <!-- Doodle: corazón (baja opacidad) -->
+    <div class="hero-doodle" style="top:15%;left:6%;width:60px;">
+      <svg viewBox="0 0 50 50" fill="none" stroke="#E8656D" stroke-width="1.8">
+        <path d="M25 45C25 45 5 30 5 18C5 10 12 5 19 8C22 9.5 24 12 25 15C26 12 28 9.5 31 8C38 5 45 10 45 18C45 30 25 45 25 45Z"/>
+      </svg>
+    </div>
+    <!-- Doodle: flor (baja opacidad) -->
+    <div class="hero-doodle" style="bottom:18%;right:8%;width:55px;">
+      <svg viewBox="0 0 50 50" fill="none" stroke="#7BC47F" stroke-width="1.5">
+        <ellipse cx="25" cy="15" rx="8" ry="12" transform="rotate(0 25 25)"/>
+        <ellipse cx="25" cy="15" rx="8" ry="12" transform="rotate(72 25 25)"/>
+        <ellipse cx="25" cy="15" rx="8" ry="12" transform="rotate(144 25 25)"/>
+        <ellipse cx="25" cy="15" rx="8" ry="12" transform="rotate(216 25 25)"/>
+        <ellipse cx="25" cy="15" rx="8" ry="12" transform="rotate(288 25 25)"/>
+        <circle cx="25" cy="25" r="5" fill="#F5C842" opacity="0.3"/>
+      </svg>
+    </div>
+    <!-- Doodle: corazón pequeño -->
+    <div class="hero-doodle" style="top:25%;right:12%;width:35px;">
+      <svg viewBox="0 0 50 50" fill="none" stroke="#F5C842" stroke-width="2">
+        <path d="M25 45C25 45 8 32 8 20C8 13 14 8 20 11C23 12.5 24 14 25 17C26 14 27 12.5 30 11C36 8 42 13 42 20C42 32 25 45 25 45Z"/>
+      </svg>
+    </div>
+    <!-- Doodle: flor pequeña -->
+    <div class="hero-doodle" style="bottom:25%;left:10%;width:40px;">
+      <svg viewBox="0 0 50 50" fill="none" stroke="#5B9BD5" stroke-width="1.5">
+        <ellipse cx="25" cy="18" rx="6" ry="10" transform="rotate(0 25 25)"/>
+        <ellipse cx="25" cy="18" rx="6" ry="10" transform="rotate(60 25 25)"/>
+        <ellipse cx="25" cy="18" rx="6" ry="10" transform="rotate(120 25 25)"/>
+        <ellipse cx="25" cy="18" rx="6" ry="10" transform="rotate(180 25 25)"/>
+        <ellipse cx="25" cy="18" rx="6" ry="10" transform="rotate(240 25 25)"/>
+        <ellipse cx="25" cy="18" rx="6" ry="10" transform="rotate(300 25 25)"/>
+        <circle cx="25" cy="25" r="4" fill="#F4A259" opacity="0.3"/>
+      </svg>
+    </div>
+
+    <div class="hero-content">
+      <!-- [TÍTULO] — Edita el título del libro -->
+      <h1 class="hero-title">Mil razones para<br>ser agradecido</h1>
+      <!-- [SUBTÍTULO] — Edita el subtítulo -->
+      <p class="hero-subtitle">Diario de gratitud y autoconocimiento</p>
+      <p class="hero-edition">3ra Edición</p>
+
+      <!-- [FRASE DE ESENCIA] — Edita la frase principal -->
+      <div class="hero-phrase">
+        <div class="washi-tape"></div>
+        Agradecer es el sentimiento y la actitud más valiosa
+      </div>
+      <br>
+      <a href="#compra" class="btn-primary">Quiero mi diario</a>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SECCIÓN 2 — QUÉ ES LA GRATITUD
+       Edita el texto y las frases del carrusel.
+       ============================================================ -->
+  <section id="gratitud" class="section-confetti">
+    <div class="container">
+      <div class="fade-in">
+        <h2 class="section-title">¿Qué es la gratitud?</h2>
+        <p class="section-subtitle">Un regalo que te das a ti misma cada día</p>
+      </div>
+
+      <div class="fade-in">
+        <!-- [TEXTO GRATITUD] — Edita esta explicación -->
+        <p class="gratitud-text">
+          La gratitud es mucho más que decir "gracias". Es una forma de mirar la vida
+          que transforma cómo te sientes, cómo te relacionas y cómo enfrentas cada
+          día. Investigaciones demuestran que las personas que practican la gratitud
+          de manera constante experimentan más alegría, duermen mejor y fortalecen
+          sus relaciones. No necesitas que todo sea perfecto para agradecer: incluso
+          en los momentos difíciles hay algo valioso esperando ser descubierto.
+        </p>
+      </div>
+
+      <!-- Carrusel de frases -->
+      <div class="fade-in">
+        <div class="carousel" id="carousel">
+          <!-- [FRASES] — Edita, agrega o quita frases aquí -->
+          <div class="carousel-phrase" style="background: var(--pastel-pink);">
+            <div class="washi-tape" style="background: var(--orange);"></div>
+            <span id="carouselText">La gratitud convierte lo que tenemos en suficiente</span>
+          </div>
+        </div>
+        <div class="carousel-dots" id="carouselDots"></div>
+      </div>
+    </div>
+
+    <!-- Doodle decorativo -->
+    <div class="doodle-decoration" style="top:20px;right:30px;width:50px;">
+      <svg viewBox="0 0 50 50" fill="none" stroke="#E8656D" stroke-width="1.5">
+        <path d="M25 45C25 45 5 30 5 18C5 10 12 5 19 8C22 9.5 24 12 25 15C26 12 28 9.5 31 8C38 5 45 10 45 18C45 30 25 45 25 45Z"/>
+      </svg>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SECCIÓN 3 — EL DIARIO
+       [IMAGEN] — Reemplaza el placeholder con una <img> de la portada.
+       ============================================================ -->
+  <section id="diario">
+    <div class="container">
+      <div class="fade-in">
+        <h2 class="section-title">El Diario</h2>
+        <p class="section-subtitle">Tu compañero de cada día para una vida más plena</p>
+      </div>
+
+      <div class="diario-grid fade-in">
+        <div class="diario-image">
+          <!-- ====================================================
+               [IMAGEN DE PORTADA]
+               Reemplaza este div con:
+               <img src="tu-imagen.jpg" alt="Portada del diario Mil razones para ser agradecido">
+               ==================================================== -->
+          <div class="image-placeholder">
+            📖<br>Foto de la portada<br><small>(Reemplaza este placeholder)</small>
+          </div>
+        </div>
+
+        <div class="diario-info">
+          <!-- [DESCRIPCIÓN] — Edita la descripción del producto -->
+          <h3>Un método práctico, paso a paso</h3>
+          <p>
+            "Mil razones para ser agradecido" es un diario diseñado para escribir
+            a mano. Te guía día a día con ejercicios sencillos para hacer de la
+            gratitud un hábito real — no solo una idea bonita. Es para ti si
+            quieres encontrar razones para agradecer y ser feliz, incluso en los
+            momentos más difíciles.
+          </p>
+
+          <!-- [BENEFICIOS] — Edita o agrega beneficios -->
+          <ul class="diario-benefits">
+            <li>Ayuda a resignificar emociones como la tristeza, la ansiedad o la depresión</li>
+            <li>Basado en investigaciones sobre los beneficios de vivir con gratitud</li>
+            <li>Ejercicios guiados que puedes hacer en solo unos minutos al día</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SECCIÓN 4 — MURO DE GRATITUD (interactivo)
+       Las notas se guardan en localStorage del dispositivo.
+       [NÚMERO_WHATSAPP] — Cambia el número en el botón de WhatsApp.
+       ============================================================ -->
+  <section id="muro" class="section-confetti">
+    <div class="container">
+      <div class="fade-in">
+        <h2 class="section-title">Muro de Gratitud</h2>
+        <p class="section-subtitle">Comparte lo que agradeces hoy</p>
+      </div>
+
+      <div class="muro-input-area fade-in">
+        <textarea id="muroInput" placeholder="Escribe aquí algo que agradeces hoy..." maxlength="200"></textarea>
+        <div class="muro-buttons">
+          <button class="btn-secondary btn-pegar" id="btnPegar">Pegar en el muro ✨</button>
+          <!-- [NÚMERO_WHATSAPP] — Cambia el número en la función enviarWhatsApp() del JS -->
+          <button class="btn-secondary btn-whatsapp" id="btnWhatsappMuro">Enviarnos tu agradecimiento 💚</button>
+        </div>
+      </div>
+
+      <div class="cork-board fade-in" id="corkBoard">
+        <p class="muro-empty" id="muroEmpty">Aún no hay notas. ¡Sé la primera en agradecer! 🌸</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SECCIÓN 5 — QUIÉNES SOMOS
+       [FOTOS AUTORAS] — Reemplaza los placeholders con <img>.
+       [TEXTOS BIO] — Edita las biografías.
+       ============================================================ -->
+  <section id="autoras">
+    <div class="container">
+      <div class="fade-in">
+        <h2 class="section-title">Quiénes somos</h2>
+        <p class="section-subtitle">Las personas detrás de este proyecto de vida</p>
+      </div>
+
+      <div class="autoras-grid fade-in">
+        <!-- Autora 1 -->
+        <div class="autora-card">
+          <div class="autora-foto">
+            <!-- ====================================================
+                 [FOTO AUTORA 1]
+                 Reemplaza con:
+                 <img src="foto-ana.jpg" alt="Ana Verónica Escoto Lozano">
+                 ==================================================== -->
+            Foto
+          </div>
+          <!-- [NOMBRE Y BIO AUTORA 1] -->
+          <h3>Ana Verónica Escoto Lozano</h3>
+          <p>
+            Apasionada por el desarrollo personal y la gratitud como
+            herramienta de transformación. Co-creadora de talleres y
+            experiencias que inspiran a vivir con mayor plenitud.
+          </p>
+        </div>
+
+        <!-- Autora 2 -->
+        <div class="autora-card">
+          <div class="autora-foto">
+            <!-- ====================================================
+                 [FOTO AUTORA 2]
+                 Reemplaza con:
+                 <img src="foto-juana.jpg" alt="Juana Patricia Núñez Cortez">
+                 ==================================================== -->
+            Foto
+          </div>
+          <!-- [NOMBRE Y BIO AUTORA 2] -->
+          <h3>Juana Patricia Núñez Cortez</h3>
+          <p>
+            Dedicada a acompañar a personas en su camino hacia una vida
+            más consciente y agradecida. Facilitadora de talleres y
+            co-autora de este diario que ya va en su tercera edición.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SECCIÓN 6 — TALLERES
+       [TALLERES] — Edita títulos, fechas, descripciones y fotos.
+       Duplica las .taller-card para agregar más talleres.
+       ============================================================ -->
+  <section id="talleres" class="section-confetti">
+    <div class="container">
+      <div class="fade-in">
+        <h2 class="section-title">Talleres</h2>
+        <p class="section-subtitle">Aprende a vivir con gratitud en comunidad</p>
+      </div>
+
+      <div class="talleres-grid fade-in">
+        <!-- Taller 1 — [EDITABLE] -->
+        <div class="taller-card">
+          <div class="taller-img">
+            <!-- Reemplaza con <img src="taller1.jpg" alt="Descripción"> -->
+            📸 Foto del taller
+          </div>
+          <div class="taller-info">
+            <h3>[Nombre del taller]</h3>
+            <p>[Descripción breve del taller y lo que aprenderán las participantes.]</p>
+            <span class="taller-date">[Fecha y hora]</span>
+          </div>
+        </div>
+
+        <!-- Taller 2 — [EDITABLE] -->
+        <div class="taller-card">
+          <div class="taller-img">
+            <!-- Reemplaza con <img src="taller2.jpg" alt="Descripción"> -->
+            📸 Foto del taller
+          </div>
+          <div class="taller-info">
+            <h3>[Nombre del taller]</h3>
+            <p>[Descripción breve del taller y lo que aprenderán las participantes.]</p>
+            <span class="taller-date">[Fecha y hora]</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SECCIÓN 7 — COMPRA
+       [ENLACE_MERCADOLIBRE] — Ya está puesto. Actualiza si cambia.
+       [NÚMERO_WHATSAPP] — Cambia el número en el href del botón.
+       NO se muestra precio.
+       ============================================================ -->
+  <section id="compra" class="compra-section">
+    <div class="container">
+      <div class="fade-in">
+        <h2 class="section-title">Lleva tu diario a casa</h2>
+        <p class="section-subtitle">El primer paso hacia una vida más agradecida</p>
+      </div>
+
+      <div class="fade-in">
+        <!-- Frase motivadora en papelito -->
+        <div style="text-align:center; margin-bottom: 36px;">
+          <div class="hero-phrase" style="background: var(--pastel-green); transform: rotate(0.5deg);">
+            <div class="washi-tape" style="background: var(--coral);"></div>
+            Hoy es un buen día para empezar a agradecer
+          </div>
+        </div>
+
+        <div class="compra-buttons">
+          <!-- [ENLACE_MERCADOLIBRE] — Actualiza este enlace si cambia -->
+          <a href="https://www.mercadolibre.com.mx/diario-de-gratitud-mil-razones-para-ser-agradecido/up/MLMU3209035645"
+             target="_blank" rel="noopener" class="btn-compra btn-mercadolibre">
+            🛒 Comprar en Mercado Libre
+          </a>
+
+          <!-- [NÚMERO_WHATSAPP] — Cambia 521XXXXXXXXXX por el número real con código de país -->
+          <a href="https://wa.me/521XXXXXXXXXX?text=Hola%2C%20quiero%20comprar%20el%20diario%20Mil%20razones%20para%20ser%20agradecido"
+             target="_blank" rel="noopener" class="btn-compra btn-compra-whatsapp">
+            💬 Comprar por WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SECCIÓN 8 — CONTACTO / BOLETÍN
+       [REDES] — Cambia los enlaces y textos de redes sociales.
+       [CORREO] — Cambia la dirección de correo.
+       ============================================================ -->
+  <section id="contacto" class="section-confetti">
+    <div class="container">
+      <div class="fade-in">
+        <h2 class="section-title">Contacto</h2>
+        <p class="section-subtitle">Nos encanta saber de ti</p>
+      </div>
+
+      <div class="contacto-grid fade-in">
+        <div class="contacto-redes">
+          <h3>Síguenos</h3>
+          <div class="social-links">
+            <!-- [REDES SOCIALES] — Cambia los enlaces y nombres -->
+            <a href="[ENLACE_INSTAGRAM]" target="_blank" rel="noopener" class="social-link">📷 Instagram</a>
+            <a href="[ENLACE_FACEBOOK]" target="_blank" rel="noopener" class="social-link">📘 Facebook</a>
+            <a href="[ENLACE_TIKTOK]" target="_blank" rel="noopener" class="social-link">🎵 TikTok</a>
+          </div>
+          <!-- [CORREO] — Cambia la dirección de correo -->
+          <p style="margin-top: 16px; font-size: 0.88rem; color: var(--text-light);">
+            ✉️ <a href="mailto:[CORREO]" style="color: var(--coral);">[CORREO]</a>
+          </p>
+        </div>
+
+        <div class="contacto-boletin">
+          <h3>Recibe novedades</h3>
+          <p>Déjanos tu correo y te avisamos de nuevas ediciones y talleres.</p>
+          <form class="boletin-form" id="boletinForm">
+            <input type="email" id="boletinEmail" placeholder="Tu correo electrónico" required>
+            <button type="submit" class="btn-subscribe">Suscribirme</button>
+          </form>
+          <p class="boletin-msg" id="boletinMsg"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer>
+    <!-- [AÑO Y NOMBRES] — Actualiza si es necesario -->
+    <p>&copy; 2024 Ana Verónica Escoto Lozano &amp; Juana Patricia Núñez Cortez. Todos los derechos reservados.</p>
+  </footer>
+
+
+  <!-- ============================================================
+       JAVASCRIPT
+       ============================================================ -->
+  <script>
+    /* =============================================================
+       CONFETI ANIMADO EN EL HERO (Canvas)
+       Colores PLENOS — sin transparencia, vibrantes sobre blanco.
+       ============================================================= */
+    (function() {
+      var canvas = document.getElementById('confettiCanvas');
+      var ctx = canvas.getContext('2d');
+      var pieces = [];
+      var COLORS = ['#E8656D', '#5B9BD5', '#7BC47F', '#F5C842', '#F4A259'];
+      var SHAPES = ['circle', 'rect', 'diamond'];
+      var NUM_PIECES = 45;
+
+      function resize() {
+        canvas.width = canvas.parentElement.offsetWidth;
+        canvas.height = canvas.parentElement.offsetHeight;
+      }
+
+      function createPiece() {
+        return {
+          x: Math.random() * canvas.width,
+          y: -10 - Math.random() * canvas.height * 0.5,
+          size: 5 + Math.random() * 6,
+          color: COLORS[Math.floor(Math.random() * COLORS.length)],
+          shape: SHAPES[Math.floor(Math.random() * SHAPES.length)],
+          speedY: 0.3 + Math.random() * 0.8,
+          speedX: (Math.random() - 0.5) * 0.4,
+          rotation: Math.random() * 360,
+          rotationSpeed: (Math.random() - 0.5) * 3,
+          opacity: 0.85 + Math.random() * 0.15
+        };
+      }
+
+      function init() {
+        resize();
+        pieces = [];
+        for (var i = 0; i < NUM_PIECES; i++) {
+          var p = createPiece();
+          p.y = Math.random() * canvas.height;
+          pieces.push(p);
+        }
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (var i = 0; i < pieces.length; i++) {
+          var p = pieces[i];
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rotation * Math.PI / 180);
+          ctx.globalAlpha = p.opacity;
+          ctx.fillStyle = p.color;
+
+          if (p.shape === 'circle') {
+            ctx.beginPath();
+            ctx.arc(0, 0, p.size / 2, 0, Math.PI * 2);
+            ctx.fill();
+          } else if (p.shape === 'rect') {
+            ctx.fillRect(-p.size / 2, -p.size / 3, p.size, p.size * 0.65);
+          } else {
+            ctx.beginPath();
+            ctx.moveTo(0, -p.size / 2);
+            ctx.lineTo(p.size / 2, 0);
+            ctx.lineTo(0, p.size / 2);
+            ctx.lineTo(-p.size / 2, 0);
+            ctx.closePath();
+            ctx.fill();
+          }
+
+          ctx.restore();
+
+          p.y += p.speedY;
+          p.x += p.speedX;
+          p.rotation += p.rotationSpeed;
+
+          if (p.y > canvas.height + 20) {
+            pieces[i] = createPiece();
+          }
+        }
+        requestAnimationFrame(draw);
+      }
+
+      window.addEventListener('resize', resize);
+      init();
+      draw();
+    })();
+
+
+    /* =============================================================
+       MENÚ HAMBURGUESA
+       ============================================================= */
+    (function() {
+      var hamburger = document.getElementById('hamburger');
+      var mobileMenu = document.getElementById('mobileMenu');
+      var links = mobileMenu.querySelectorAll('a');
+
+      hamburger.addEventListener('click', function() {
+        hamburger.classList.toggle('active');
+        mobileMenu.classList.toggle('open');
+      });
+
+      for (var i = 0; i < links.length; i++) {
+        links[i].addEventListener('click', function() {
+          hamburger.classList.remove('active');
+          mobileMenu.classList.remove('open');
+        });
+      }
+    })();
+
+
+    /* =============================================================
+       NAVBAR — sombra al hacer scroll
+       ============================================================= */
+    window.addEventListener('scroll', function() {
+      var navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+
+    /* =============================================================
+       FADE-IN AL SCROLL (IntersectionObserver)
+       ============================================================= */
+    (function() {
+      var targets = document.querySelectorAll('.fade-in');
+
+      function checkVisibility() {
+        targets.forEach(function(el) {
+          var rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight - 40) {
+            el.classList.add('visible');
+          }
+        });
+      }
+
+      if ('IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1, rootMargin: '0px 0px 50px 0px' });
+
+        targets.forEach(function(el) { observer.observe(el); });
+      }
+
+      window.addEventListener('scroll', checkVisibility);
+      checkVisibility();
+    })();
+
+
+    /* =============================================================
+       CARRUSEL DE FRASES DE GRATITUD
+       [FRASES] — Edita este array para cambiar/agregar frases.
+       ============================================================= */
+    (function() {
+      var phrases = [
+        "La gratitud convierte lo que tenemos en suficiente",
+        "Agradecer no cambia lo que pasó, cambia cómo lo vives",
+        "Cada día trae consigo un regalo, solo hay que aprender a verlo",
+        "La gratitud es la memoria del corazón",
+        "Quien agradece lo pequeño, recibe lo grande"
+      ];
+
+      var pastelColors = [
+        'var(--pastel-pink)',
+        'var(--pastel-blue)',
+        'var(--pastel-yellow)',
+        'var(--pastel-green)',
+        'var(--pastel-peach)'
+      ];
+
+      var tapeColors = [
+        'var(--orange)',
+        'var(--green)',
+        'var(--coral)',
+        'var(--blue)',
+        'var(--yellow)'
+      ];
+
+      var textEl = document.getElementById('carouselText');
+      var phraseEl = textEl.parentElement;
+      var tapeEl = phraseEl.querySelector('.washi-tape');
+      var dotsContainer = document.getElementById('carouselDots');
+      var current = 0;
+
+      // Crear dots
+      for (var i = 0; i < phrases.length; i++) {
+        var dot = document.createElement('button');
+        dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Frase ' + (i + 1));
+        dot.dataset.index = i;
+        dot.addEventListener('click', function() {
+          goTo(parseInt(this.dataset.index));
+        });
+        dotsContainer.appendChild(dot);
+      }
+
+      function goTo(index) {
+        current = index;
+        phraseEl.style.opacity = '0';
+        phraseEl.style.transform = 'scale(0.95) rotate(-1deg)';
+        setTimeout(function() {
+          textEl.textContent = phrases[current];
+          phraseEl.style.background = pastelColors[current % pastelColors.length];
+          tapeEl.style.background = tapeColors[current % tapeColors.length];
+          phraseEl.style.opacity = '1';
+          phraseEl.style.transform = 'scale(1) rotate(-1deg)';
+        }, 250);
+
+        var dots = dotsContainer.querySelectorAll('.carousel-dot');
+        for (var j = 0; j < dots.length; j++) {
+          dots[j].classList.toggle('active', j === current);
+        }
+      }
+
+      setInterval(function() {
+        goTo((current + 1) % phrases.length);
+      }, 4500);
+    })();
+
+
+    /* =============================================================
+       MURO DE GRATITUD — localStorage
+       [NÚMERO_WHATSAPP] — Cambia el número en la variable whatsappNumber.
+       ============================================================= */
+    (function() {
+      /* =========================================
+         Cambia este número por el real (con código de país, sin +)
+         Ejemplo: '5213312345678'
+         ========================================= */
+      var whatsappNumber = '521XXXXXXXXXX';
+
+      var input = document.getElementById('muroInput');
+      var btnPegar = document.getElementById('btnPegar');
+      var btnWhatsapp = document.getElementById('btnWhatsappMuro');
+      var board = document.getElementById('corkBoard');
+      var emptyMsg = document.getElementById('muroEmpty');
+
+      var pastelBgs = ['#FFF3D4', '#FFE0E3', '#D4F0FF', '#D8F5D8', '#FFE4CC'];
+      var tapeClrs = ['#7BC47F', '#5B9BD5', '#F4A259', '#E8656D', '#F5C842'];
+      var rotations = [-2, 1.5, -1, 2, -0.5, 1, -1.5];
+
+      function loadNotes() {
+        try {
+          return JSON.parse(localStorage.getItem('muroNotas')) || [];
+        } catch(e) {
+          return [];
+        }
+      }
+
+      function saveNotes(notes) {
+        try {
+          localStorage.setItem('muroNotas', JSON.stringify(notes));
+        } catch(e) {}
+      }
+
+      function renderNotes() {
+        var notes = loadNotes();
+        var existingCards = board.querySelectorAll('.note-card');
+        for (var i = 0; i < existingCards.length; i++) {
+          existingCards[i].remove();
+        }
+
+        if (notes.length === 0) {
+          emptyMsg.style.display = 'block';
+          return;
+        }
+
+        emptyMsg.style.display = 'none';
+
+        for (var j = 0; j < notes.length; j++) {
+          var note = notes[j];
+          var card = document.createElement('div');
+          card.className = 'note-card';
+          var rot = rotations[j % rotations.length];
+          card.style.background = pastelBgs[j % pastelBgs.length];
+          card.style.setProperty('--rotate', rot + 'deg');
+          card.style.transform = 'rotate(' + rot + 'deg)';
+
+          var tape = document.createElement('div');
+          tape.className = 'note-tape';
+          tape.style.background = tapeClrs[j % tapeClrs.length];
+          card.appendChild(tape);
+
+          var text = document.createElement('span');
+          text.textContent = note.text;
+          card.appendChild(text);
+
+          var del = document.createElement('button');
+          del.className = 'note-delete';
+          del.textContent = '✕';
+          del.dataset.index = j;
+          del.addEventListener('click', function() {
+            var notes = loadNotes();
+            notes.splice(parseInt(this.dataset.index), 1);
+            saveNotes(notes);
+            renderNotes();
+          });
+          card.appendChild(del);
+
+          board.appendChild(card);
+        }
+      }
+
+      btnPegar.addEventListener('click', function() {
+        var text = input.value.trim();
+        if (!text) return;
+        var notes = loadNotes();
+        notes.unshift({ text: text, date: new Date().toISOString() });
+        if (notes.length > 30) notes = notes.slice(0, 30);
+        saveNotes(notes);
+        renderNotes();
+        input.value = '';
+      });
+
+      btnWhatsapp.addEventListener('click', function() {
+        var text = input.value.trim();
+        var msg = text
+          ? 'Hola, quiero compartirles mi agradecimiento: ' + text
+          : 'Hola, quiero compartirles mi agradecimiento';
+        var url = 'https://wa.me/' + whatsappNumber + '?text=' + encodeURIComponent(msg);
+        window.open(url, '_blank');
+      });
+
+      renderNotes();
+    })();
+
+
+    /* =============================================================
+       BOLETÍN — Validación y guardado en localStorage
+       (Sin backend: guarda el correo localmente y muestra confirmación.
+        Para conectar a un servicio real, edita la función handleSubmit.)
+       ============================================================= */
+    (function() {
+      var form = document.getElementById('boletinForm');
+      var emailInput = document.getElementById('boletinEmail');
+      var msg = document.getElementById('boletinMsg');
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var email = emailInput.value.trim();
+
+        if (!email || !isValidEmail(email)) {
+          msg.textContent = 'Por favor ingresa un correo válido.';
+          msg.className = 'boletin-msg error';
+          return;
+        }
+
+        try {
+          var subs = JSON.parse(localStorage.getItem('boletinSubs')) || [];
+          if (subs.indexOf(email) !== -1) {
+            msg.textContent = 'Este correo ya está suscrito. ¡Gracias!';
+            msg.className = 'boletin-msg success';
+            return;
+          }
+          subs.push(email);
+          localStorage.setItem('boletinSubs', JSON.stringify(subs));
+        } catch(e) {}
+
+        msg.textContent = '¡Gracias por suscribirte! Te mantendremos al tanto.';
+        msg.className = 'boletin-msg success';
+        emailInput.value = '';
+      });
+
+      function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      }
+    })();
+  </script>
+
+</body>
+</html>
